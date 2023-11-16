@@ -20,9 +20,9 @@ section .data
   ask_second_value_len equ $ - ask_second_value
 
 section .bss
-  first_value     resb 1
-  second_value    resb 1
-  selected_option resb 1
+  first_value          resb 1
+  second_value         resb 1
+  selected_option      resb 1
 
 section .text
   
