@@ -1,16 +1,15 @@
-segment .data
-  LF          equ 0xA
-  CR          equ 0xD
-  NULL        equ 0x0
-  SYS_CALL    equ 0x80
-  ;EAX
-  SYS_EXIT    equ 60
-  SYS_READ    equ 0
-  SYS_WRITE   equ 1
-  ;EBX
-  STD_IN      equ 0
-  STD_OUT     equ 1
-  STD_ERR     equ 2
+%define LF             0xA
+%define CR             0xD
+%define NULL           0x0
+%define SYS_CALL       0x80
+; EAX
+%define SYS_EXIT       60
+%define SYS_READ       0
+%define SYS_WRITE      1
+; EBX
+%define STD_IN         0
+%define STD_OUT        1
+%define STD_ERR        2
 
 section .data
   menu_msg             db "1) MULT 2) SUB 3) DIV 4) SUM -> ", NULL
