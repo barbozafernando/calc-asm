@@ -12,21 +12,23 @@
 %define STD_ERR        2
 
 section .data
-  menu_msg             db "1) MULT 2) SUB 3) DIV 4) SUM -> ", NULL
+  menu_msg             db "1) MULT 2) SUB 3) DIV 4) SUM 5) EXIT -> ", NULL
   menu_msg_len         equ $ - menu_msg
-  ask_first_value      db "First value: ", LF, CR
+  ask_first_value      db "Enter the first value: ", LF, CR
   ask_first_value_len  equ $ - ask_first_value
-  ask_second_value     db "Second value: ", LF, CR
+  ask_second_value     db "Enter the second value: ", LF, CR
   ask_second_value_len equ $ - ask_second_value
+  debug                db "DEBUG", NULL
+  debug_len            equ $ - debug
 
 section .bss
-  first_value          resb 1
-  second_value         resb 1
+  first_value          resb 8
+  second_value         resb 8
   selected_option      resb 1
 
+
 section .text
-  
-global _start
+  global _start
 
 _start:
   mov rax, SYS_WRITE
@@ -38,11 +40,27 @@ _start:
   mov rax, SYS_READ
   mov rdi, STD_IN
   mov rsi, selected_option
-  mov rdx, 1                            ; 1 byte string length
+  mov rdx, 1
   syscall
 
-  mov eax, SYS_EXIT
+  cmp byte [rsi], "5"
+  je exit_program
+  cmp byte [rsi], "4"
+  je sum
+  cmp byte [rsi], "3"
+  je divs
+  cmp byte [rsi], "2"
+  je subt
+  cmp byte [rsi], "1"
+  je mult
+
+  ; jmp _start
+
+exit_program:
+  mov rax, SYS_EXIT
   xor rdi, rdi
   syscall
 
+
 %include "print_string.asm"
+%include "arithmetic.asm"
